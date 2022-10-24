@@ -1,0 +1,55 @@
+/* main layout */
+nav {
+  background-color: #e5e5e5
+}
+
+.btn-logout {
+  background: #fff;
+  color: #f08926
+}
+
+/* index page */
+.index-container {
+  width: 50%
+}
+
+.fa-solid {
+  color: rgb(111, 182, 193);
+}
+
+.amount-wrapper {
+  position: relative
+}
+
+.amount-number {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  font-size: 4rem;
+  color: #f08926
+}
+
+.table {
+  margin-top: 6rem
+}
+
+.detail,
+.date {
+  margin: 0
+}
+
+.date {
+  font-size: 5px
+}
+
+.btn-create {
+  width: 40%;
+  color: #fff;
+  background: #f08926;
+}
+
+a,
+.btn-link {
+  text-decoration: none;
+  color: #000
+}

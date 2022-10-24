@@ -1,0 +1,82 @@
+<div class="container index-container">
+  {{!-- sort --}}
+  <div class="sort-wrapper">
+    <form action="/">
+      <select name="sort" class="form-select mt-5" aria-label="Default select example" type="submit"
+        onchange="this.form.submit()">
+        <option value="">類別</option>
+        <option value="家居物業">家居物業</option>
+        <option value="交通出行">交通出行</option>
+        <option value="休閒娛樂">休閒娛樂</option>
+        <option value="餐飲食品">餐飲食品</option>
+        <option value="其他">其他</option>
+      </select>
+    </form>
+  </div>
+  {{!-- total amount --}}
+  <div class="amount-wrapper mt-3">
+    <p class="ms-3">總金額:</p>
+    <p class="amount-number">25260</p>
+  </div>
+  {{!-- expense --}}
+  <div class="expense-wrapper">
+    <table class="table table-striped table-hover table-borderless align-middle">
+      <tbody>
+        <tr>
+          <th class="text-center" scope="row"><i class="fs-1 fa-solid fa-utensils"></i></th>
+          <td>
+            <p class="detail">午餐</p>
+            <p class="date">2019/04/23</p>
+          </td>
+          <td>60</td>
+          <td><a href="/expenses/id/edit">修改</a></td>
+          <td><button type="button" class="btn btn-link" data-bs-toggle="modal"
+              data-bs-target="#deleteModal">刪除</button></td>
+        </tr>
+        <tr>
+          <th class="text-center" scope="row"><i class="fs-1 fa-solid fa-utensils"></i></th>
+          <td>
+            <p class="detail">晚餐</p>
+            <p class="date">2019/04/23</p>
+          </td>
+          <td>60</td>
+          <td><a href="/expenses/id/edit">修改</a></td>
+          <td><button type="button" class="btn btn-link" data-bs-toggle="modal"
+              data-bs-target="#deleteModal">刪除</button></td>
+        </tr>
+        <tr>
+          <th class="text-center" scope="row"><i class="fs-1 fa-solid fa-van-shuttle"></i></th>
+          <td>
+            <p class="detail">捷運</p>
+            <p class="date">2019/04/23</p>
+          </td>
+          <td>60</td>
+          <td><a href="/expenses/id/edit">修改</a></td>
+          <td><button type="button" class="btn btn-link" data-bs-toggle="modal"
+              data-bs-target="#deleteModal">刪除</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="create-wrapper d-flex justify-content-center">
+    <a href="/expenses/new" class="btn btn-outline-dark btn-create">新增支出</a>
+  </div>
+</div>
+
+{{!-- delete modal --}}
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">確定要刪除嗎？</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <form action="/expenses/id" method="post">
+          <button type="submit" class="btn btn-danger btn-sm">刪除</button>
+        </form>
+        <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
