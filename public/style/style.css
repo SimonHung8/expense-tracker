@@ -58,3 +58,8 @@ a,
 .btn-add {
   width: 77%
 }
+
+.required-column {
+  font-size: 5px;
+  margin-left: -0.8rem;
+}

@@ -1,12 +1,12 @@
 <div class="container d-flex flex-column align-items-center new-container">
-  <h3 class="my-5">請輸入你的支出</h3>
   <form action="/expenses" method="post">
-    <div class="row g-3 align-items-center mb-5">
+
+    <div class="row g-3 align-items-center my-5">
       <div class="col-auto">
-        <label for="name" class="col-form-label">名稱:<span class="text-danger">*</span></label>
+        <p class="required-column"><span class="text-danger">*</span>必填欄位</p>
       </div>
-      <div class="col">
-        <input type="string" id="name" name="name" class="form-control" placeholder="品項">
+      <div class="col text-center">
+        <h4>請輸入你的支出</h4>
       </div>
 
     </div>
