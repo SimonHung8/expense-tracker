@@ -54,9 +54,11 @@ a,
   color: #000
 }
 
-/* new page */
-.btn-add {
-  width: 77%
+/* new page, edit page, login page, register page*/
+.btn-add,
+.btn-login,
+.btn-register {
+  width: 100%
 }
 
 .required-column {
