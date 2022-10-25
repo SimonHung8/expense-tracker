@@ -1,0 +1,55 @@
+<div class="container d-flex flex-column align-items-center new-container">
+  <h3 class="my-5">請輸入你的支出</h3>
+  <form action="/expenses" method="post">
+    <div class="row g-3 align-items-center mb-5">
+      <div class="col-auto">
+        <label for="name" class="col-form-label">名稱:<span class="text-danger">*</span></label>
+      </div>
+      <div class="col">
+        <input type="string" id="name" name="name" class="form-control" placeholder="品項">
+      </div>
+
+    </div>
+    <div class="row g-3 align-items-center mb-5">
+      <div class="col-auto">
+        <label for="date" class="col-form-label">日期:<span class="text-danger">*</span></label>
+      </div>
+      <div class="col">
+        <input type="date" id="date" name="date" class="form-control" max="9999-12-31">
+      </div>
+
+    </div>
+    <div class="row g-3 align-items-center mb-5">
+      <div class="col-auto">
+        <label for="category" class="col-form-label">類別:<span class="text-danger">*</span></label>
+      </div>
+      <div class="col">
+        <select name="category" id="category" class="form-select">
+          <option value=""></option>
+          <option value="家居物業">家居物業</option>
+          <option value="交通出行">交通出行</option>
+          <option value="休閒娛樂">休閒娛樂</option>
+          <option value="餐飲食品">餐飲食品</option>
+          <option value="其他">其他</option>
+        </select>
+      </div>
+    </div>
+    <div class="row g-3 align-items-center mb-5">
+      <div class="col-auto">
+        <label for="amount" class="col-form-label">金額:<span class="text-danger">*</span></label>
+      </div>
+      <div class="col">
+        <input type="number" id="amount" name="amount" class="form-control" placeholder="金額">
+      </div>
+    </div>
+    <div class="row g-3 align-items-end mb-5">
+      <div class="auto text-end">
+        <button type="submit" class="btn btn-outline-dark btn-add">新增支出</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById('date').valueAsDate = new Date();
+</script>
