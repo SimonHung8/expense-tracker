@@ -4,61 +4,61 @@
       "name": "Test1房租",
       "date": "2001-01-01",
       "amount": "111",
-      "category": "家居物業"
+      "categoryID": "家居物業"
     },
     {
       "name": "Test1車貸",
       "date": "2002-02-02",
       "amount": "222",
-      "category": "交通出行"
+      "categoryID": "交通出行"
     },
     {
       "name": "Test1串流會員",
       "date": "2003-03-03",
       "amount": "333",
-      "category": "休閒娛樂"
+      "categoryID": "休閒娛樂"
     },
     {
       "name": "Test1火鍋",
       "date": "2004-04-04",
       "amount": "444",
-      "category": "餐飲食品"
+      "categoryID": "餐飲食品"
     },
     {
       "name": "Test1看醫生",
       "date": "2005-05-05",
       "amount": "555",
-      "category": "其他"
+      "categoryID": "其他"
     },
     {
       "name": "Test2房租",
       "date": "2001-01-01",
       "amount": "111",
-      "category": "家居物業"
+      "categoryID": "家居物業"
     },
     {
       "name": "Test2車貸",
       "date": "2002-02-02",
       "amount": "222",
-      "category": "交通出行"
+      "categoryID": "交通出行"
     },
     {
       "name": "Test2串流會員",
       "date": "2003-03-03",
       "amount": "333",
-      "category": "休閒娛樂"
+      "categoryID": "休閒娛樂"
     },
     {
       "name": "Test2火鍋",
       "date": "2004-04-04",
       "amount": "444",
-      "category": "餐飲食品"
+      "categoryID": "餐飲食品"
     },
     {
       "name": "Test2看醫生",
       "date": "2005-05-05",
       "amount": "555",
-      "category": "其他"
+      "categoryID": "其他"
     }
   ]
 }

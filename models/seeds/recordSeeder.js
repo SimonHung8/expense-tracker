@@ -14,7 +14,7 @@ db.once('open', () => {
   Category.find()
     .then(categories => {
       SEED_RECORDS.forEach(seed => {
-        seed.category = categories.find(category => category.name === seed.category)._id
+        seed.categoryID = categories.find(category => category.name === seed.categoryID)._id
       })
     })
     .then(() => {
