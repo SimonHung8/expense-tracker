@@ -1,5 +1,5 @@
 <div class="container d-flex flex-column align-items-center login-container mt-3">
-  <form action="/users/login" method="post" novalidate>
+  <form action="/users/login" method="post" class="needs-validation" novalidate>
     {{> msg}}
     <div class="row g-3 align-items-center my-3">
       <div class="col-3"></div>
@@ -13,7 +13,10 @@
         <label for="email" class="col-form-label">Email:</label>
       </div>
       <div class="col-9">
-        <input type="email" id="email" name="email" class="form-control" placeholder="請輸入Email">
+        <input type="email" id="email" name="email" class="form-control" placeholder="請輸入Email" required>
+        <div class="invalid-feedback">
+          請輸入email
+        </div>
       </div>
     </div>
 
@@ -22,7 +25,10 @@
         <label for="password" class="col-form-label">密碼:</label>
       </div>
       <div class="col-9">
-        <input type="password" id="password" name="password" class="form-control" placeholder="請輸入密碼">
+        <input type="password" id="password" name="password" class="form-control" placeholder="請輸入密碼" required>
+        <div class="invalid-feedback">
+          請輸入密碼
+        </div>
       </div>
     </div>
 
@@ -41,3 +47,15 @@
     </div>
   </form>
 </div>
+
+<script>
+  const form = document.querySelector('form')
+  form.addEventListener('submit', function (event) {
+    if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+    form.classList.add('was-validated')
+  }, false)
+
+</script>
