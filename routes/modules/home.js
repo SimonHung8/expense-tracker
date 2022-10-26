@@ -6,12 +6,14 @@ const Category = require('../../models/Category')
 router.get('/', (req, res) => {
   const categories = []
   const filter = req.query.filter
+  const userID = req.user._id
   // 找出所有分類，如果只從記帳記錄找，使用者可能沒有建立過該種分類的資料
   Category.find()
     .lean()
     .then(category => categories.push(...category))
     .then(() => {
-      Record.find(categories.some(category => category._id.toString() === filter) ? { categoryID: filter } : {})
+      Record.find(categories.some(category => category._id.toString() === filter) ?
+        { userID, categoryID: filter } : { userID })
         // 與category collection關聯
         .populate('categoryID')
         .lean()

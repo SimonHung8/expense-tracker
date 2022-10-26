@@ -1,7 +1,9 @@
 // require packages and modules
 const express = require('express')
 const { engine } = require('express-handlebars')
+const session = require('express-session')
 const routes = require('./routes/index')
+const usePassport = require('./config/passport')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -16,6 +18,19 @@ require('./config/mongoose')
 app.engine('hbs', engine({ defaultLayout: 'main', extname: 'hbs' }))
 app.set('view engine', 'hbs')
 app.use(express.static('public'))
+
+// setting body parser
+app.use(express.urlencoded({ extended: true }))
+
+// setting session
+app.use(session({
+  secret: 'expense-tracker',
+  resave: false,
+  saveUninitialized: true,
+}))
+
+// setting passport
+usePassport(app)
 
 // setting routes
 app.use(routes)
