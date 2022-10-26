@@ -1,5 +1,5 @@
 <div class="container d-flex flex-column align-items-center register-container">
-  <form action="/users/register" method="post">
+  <form action="/users/register" method="post" class="needs-validation" novalidate>
     <div class="row g-3 align-items-center my-3">
       <div class="col-3">
         <p class="required-column"><span class="text-danger">*</span>必填欄位</p>
@@ -14,7 +14,7 @@
         <label for="name" class="col-form-label">姓名:</label>
       </div>
       <div class="col-9">
-        <input type="text" id="name" name="name" class="form-control" placeholder="請輸入使用者名稱">
+        <input type="text" id="name" name="name" class="form-control" placeholder="請輸入使用者名稱" value="{{name}}">
       </div>
     </div>
 
@@ -23,7 +23,7 @@
         <label for="email" class="col-form-label">Email:</label>
       </div>
       <div class="col-9">
-        <input type="email" id="email" name="email" class="form-control" placeholder="請輸入Email">
+        <input type="email" id="email" name="email" class="form-control" placeholder="請輸入Email" value="{{email}}">
       </div>
     </div>
 
@@ -32,23 +32,23 @@
         <label for="password" class="col-form-label">密碼:</label>
       </div>
       <div class="col-9">
-        <input type="password" id="password" name="password" class="form-control" placeholder="請輸入密碼">
+        <input type="password" id="password" name="password" class="form-control" placeholder="請輸入密碼" value="{{password}}">
       </div>
     </div>
 
     <div class="row g-3 align-items-center mb-5">
       <div class="col-3">
-        <label for="confirm-password" class="col-form-label">密碼:</label>
+        <label for="confirmPassword" class="col-form-label">密碼:</label>
       </div>
       <div class="col-9">
-        <input type="password" id="confirm-password" name="confirm-password" class="form-control" placeholder="請輸入相同密碼">
+        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="請輸入相同密碼" value="{{confirmPassword}}">
       </div>
     </div>
 
     <div class="row g-3 align-items-center mb-5">
       <div class="col-3"></div>
       <div class="col-9 text-end">
-        <button type="submit" class="btn btn-outline-dark btn-register">登入</button>
+        <button type="submit" class="btn btn-outline-dark btn-register">註冊</button>
       </div>
     </div>
 

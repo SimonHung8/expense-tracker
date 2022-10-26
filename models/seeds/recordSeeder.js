@@ -34,7 +34,9 @@ db.once('open', () => {
               }
             })
             return Record.insertMany(records)
+              .catch(err => console.log(err))
           })
+          .catch(err => console.log(err))
       }))
         .then(() => {
           console.log('seed record constructed')

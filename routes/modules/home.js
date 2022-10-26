@@ -35,6 +35,10 @@ router.get('/', (req, res) => {
           })
           res.render('index', { records, categories, totalAmount })
         })
+        .catch(err => {
+          console.log(err)
+          res.render('err')
+        })
     })
     .catch(err => {
       console.log(err)
