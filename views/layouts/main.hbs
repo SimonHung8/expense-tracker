@@ -15,8 +15,10 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid navbar-container">
-      <a class="navbar-brand fw-bold ms-5" href="/">家庭記帳本</a>
+      <a class="navbar-brand fw-bold ms-5" href="/">{{#if user}}{{user.name}}的{{/if}}家庭記帳本</a>
+      {{#if isAuthenticated}}
       <a class="nav-link btn btn-outline-dark btn-logout me-5" href="/users/logout">登出</a>
+      {{/if}}
     </div>
   </nav>
   {{{body}}}

@@ -2,6 +2,7 @@
 const express = require('express')
 const { engine } = require('express-handlebars')
 const session = require('express-session')
+const flash = require('connect-flash')
 const routes = require('./routes/index')
 const usePassport = require('./config/passport')
 if (process.env.NODE_ENV !== 'production') {
@@ -31,6 +32,18 @@ app.use(session({
 
 // setting passport
 usePassport(app)
+
+// setting connect-flash
+app.use(flash())
+
+// setting res locals
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
+  next()
+})
 
 // setting routes
 app.use(routes)

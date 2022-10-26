@@ -16,6 +16,7 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/logout', (req, res) => {
   req.logOut(() => {
+    req.flash('success_msg', '你已經登出')
     res.redirect('/users/login')
   })
 })
@@ -29,23 +30,24 @@ router.post('/register',
   (req, res) => {
     const { name, email, password, confirmPassword } = req.body
     const errors = validationResult(req)
+    const errorMsg = []
     if (!errors.isEmpty()) {
-      console.log('invalid email')
+      errorMsg.push('請輸入有效email')
     }
-    if (!name) {
-      console.log('invalid name')
-    }
-    if (!password) {
-      console.log('invalid password')
+    if (!name || !email || !password || !confirmPassword) {
+      errorMsg.push('請填寫所有欄位')
     }
     if (confirmPassword !== password) {
-      console.log('confirm password again')
+      errorMsg.push('密碼與確認密碼不相符')
+    }
+    if (errorMsg.length) {
+      return res.render('register', { errorMsg, name, email, password, confirmPassword })
     }
     User.findOne({ email })
       .then(user => {
         if (user) {
-          console.log('registered email')
-          return res.render('register', { name, email, password, confirmPassword })
+          errorMsg.push('這個Email已經註冊過了')
+          return res.render('register', { errorMsg, name, email, password, confirmPassword })
         }
         bcrypt.genSalt(5)
           .then(salt => bcrypt.hash(password, salt))
