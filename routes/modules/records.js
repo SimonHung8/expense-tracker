@@ -147,4 +147,15 @@ router.put('/:id',
       })
   })
 
+router.delete('/:id', (req, res) => {
+  const _id = req.params.id
+  const userID = req.user._id
+  Record.findOneAndDelete({ _id, userID })
+    .then(res.redirect('/'))
+    .catch(err => {
+      console.log(err)
+      res.render('err')
+    })
+})
+
 module.exports = router
