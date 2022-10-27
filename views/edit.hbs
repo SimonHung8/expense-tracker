@@ -15,7 +15,10 @@
         <label for="name" class="col-form-label">名稱:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
-        <input type="text" id="name" name="name" class="form-control" value="{{record.name}}">
+        <input type="text" id="name" name="name" class="form-control" value="{{record.name}}" required>
+        <div class="invalid-feedback">
+          請輸入支出項目
+        </div>
       </div>
     </div>
 
@@ -24,7 +27,10 @@
         <label for="date" class="col-form-label">日期:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
-        <input type="date" id="date" name="date" class="form-control" max="9999-12-31" value="{{record.date}}">
+        <input type="date" id="date" name="date" class="form-control" max="9999-12-31" value="{{record.date}}" required>
+        <div class="invalid-feedback">
+          請輸入有效日期 yyyy-mm-dd
+        </div>
       </div>
     </div>
 
@@ -33,11 +39,14 @@
         <label for="category" class="col-form-label">類別:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
-        <select name="category" id="category" class="form-select">
+        <select name="category" id="category" class="form-select" required>
           {{#each categories}}
           <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
           {{/each}}
         </select>
+        <div class="invalid-feedback">
+          請選擇支出類別
+        </div>
       </div>
     </div>
 
@@ -46,7 +55,10 @@
         <label for="amount" class="col-form-label">金額:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
-        <input type="number" id="amount" name="amount" class="form-control" value="{{record.amount}}">
+        <input type="number" id="amount" name="amount" class="form-control" value="{{record.amount}}" required>
+        <div class="invalid-feedback">
+          金額請輸入阿拉伯數字
+        </div>
       </div>
     </div>
 
@@ -58,3 +70,14 @@
     </div>
   </form>
 </div>
+
+<script>
+  const form = document.querySelector('form')
+  form.addEventListener('submit', function (event) {
+    if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+    form.classList.add('was-validated')
+  }, false)
+</script>
