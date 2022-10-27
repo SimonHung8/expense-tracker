@@ -1,5 +1,6 @@
-<div class="container d-flex flex-column align-items-center new-container">
-  <form action="/records" method="post">
+<div class="container d-flex flex-column align-items-center new-container mt-3">
+  <form action="/records/{{record._id}}?_method=PUT" method="post" class="needs-validation" novalidate>
+    {{> msg}}
     <div class="row g-3 align-items-center my-5">
       <div class="col-3">
         <p class="required-column"><span class="text-danger">*</span>必填欄位</p>
@@ -14,7 +15,7 @@
         <label for="name" class="col-form-label">名稱:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
-        <input type="text" id="name" name="name" class="form-control">
+        <input type="text" id="name" name="name" class="form-control" value="{{record.name}}">
       </div>
     </div>
 
@@ -23,7 +24,7 @@
         <label for="date" class="col-form-label">日期:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
-        <input type="date" id="date" name="date" class="form-control" max="9999-12-31">
+        <input type="date" id="date" name="date" class="form-control" max="9999-12-31" value="{{record.date}}">
       </div>
     </div>
 
@@ -33,12 +34,9 @@
       </div>
       <div class="col-9">
         <select name="category" id="category" class="form-select">
-          <option value=""></option>
-          <option value="家居物業">家居物業</option>
-          <option value="交通出行">交通出行</option>
-          <option value="休閒娛樂">休閒娛樂</option>
-          <option value="餐飲食品">餐飲食品</option>
-          <option value="其他">其他</option>
+          {{#each categories}}
+          <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+          {{/each}}
         </select>
       </div>
     </div>
@@ -48,7 +46,7 @@
         <label for="amount" class="col-form-label">金額:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
-        <input type="number" id="amount" name="amount" class="form-control">
+        <input type="number" id="amount" name="amount" class="form-control" value="{{record.amount}}">
       </div>
     </div>
 

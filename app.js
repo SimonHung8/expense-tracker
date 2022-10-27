@@ -3,6 +3,7 @@ const express = require('express')
 const { engine } = require('express-handlebars')
 const session = require('express-session')
 const flash = require('connect-flash')
+const methodOverride = require('method-override')
 const routes = require('./routes/index')
 const usePassport = require('./config/passport')
 if (process.env.NODE_ENV !== 'production') {
@@ -44,6 +45,9 @@ app.use((req, res, next) => {
   res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
+
+// setting method override
+app.use(methodOverride('_method'))
 
 // setting routes
 app.use(routes)
