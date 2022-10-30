@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // setting session
 app.use(session({
-  secret: 'expense-tracker',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
 }))
