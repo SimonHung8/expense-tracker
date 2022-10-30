@@ -54,5 +54,5 @@ app.use(routes)
 
 // listening on server
 app.listen(PORT, () => {
-  console.log(`Express Tracker is running on http://localhost:${PORT}`)
+  console.log(`Expense Tracker is running on http://localhost:${PORT}`)
 })
