@@ -78,7 +78,7 @@ router.get('/:id/edit', (req, res) => {
         .lean()
         .then(record => {
           categories.forEach(category => {
-            if (category._id === record.categoryID) {
+            if (category._id.toString() === record.categoryID.toString()) {
               category.selected = true
             }
           })

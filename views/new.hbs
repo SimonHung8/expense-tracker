@@ -56,7 +56,7 @@
         <label for="amount" class="col-form-label">金額:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
-        <input type="number" id="amount" name="amount" class="form-control" placeholder="金額" value="{{amount}}"
+        <input type="number" id="amount" name="amount" class="form-control" placeholder="金額" min="1" value="{{amount}}"
           required>
         <div class="invalid-feedback">
           金額請輸入阿拉伯數字
