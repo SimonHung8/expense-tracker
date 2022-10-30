@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const app = express()
-const PORT = 3000
+const PORT = process.env.PORT
 
 // connect mongodb
 require('./config/mongoose')
