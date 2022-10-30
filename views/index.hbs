@@ -64,9 +64,9 @@
 
 {{!-- 動態調整modal連結 --}}
 <script>
-  const btnDelete = document.querySelectorAll('.btn-delete')
-  btnDelete.forEach(btn => {
-    btn.addEventListener('click', event => {
+  const recordsWrapper = document.querySelector('.records-wrapper')
+  recordsWrapper.addEventListener('click', event => {
+    if (event.target.classList.contains('btn-delete')) {
       const id = event.target.dataset.id
       const modalFooter = document.querySelector('.modal-footer')
       modalFooter.innerHTML = `
@@ -74,7 +74,7 @@
           <button type="submit" class="btn btn-danger btn-sm">刪除</button>
         </form>
         <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">返回</button>
-    `
-    })
+    `}
   })
+
 </script>
