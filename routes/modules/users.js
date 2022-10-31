@@ -52,7 +52,7 @@ router.post('/register',
         bcrypt.genSalt(5)
           .then(salt => bcrypt.hash(password, salt))
           .then(hash => User.create({ name, email, password: hash }))
-          .then(res.redirect('/users/login'))
+          .then(user => req.logIn(user, () => res.redirect('/')))
           .catch(err => {
             console.log(err)
             res.render('err')
