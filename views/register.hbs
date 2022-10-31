@@ -12,7 +12,7 @@
 
     <div class="row g-3 align-items-center mb-5">
       <div class="col-3">
-        <label for="name" class="col-form-label">姓名:</label>
+        <label for="name" class="col-form-label">姓名:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
         <input type="text" id="name" name="name" class="form-control" placeholder="請輸入使用者名稱" value="{{name}}" required>
@@ -24,7 +24,7 @@
 
     <div class="row g-3 align-items-center mb-5">
       <div class="col-3">
-        <label for="email" class="col-form-label">Email:</label>
+        <label for="email" class="col-form-label">Email:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
         <input type="email" id="email" name="email" class="form-control" placeholder="請輸入Email" value="{{email}}"
@@ -37,7 +37,7 @@
 
     <div class="row g-3 align-items-center mb-5">
       <div class="col-3">
-        <label for="password" class="col-form-label">密碼:</label>
+        <label for="password" class="col-form-label">密碼:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
         <input type="password" id="password" name="password" class="form-control" placeholder="請輸入密碼"
@@ -50,7 +50,7 @@
 
     <div class="row g-3 align-items-center mb-5">
       <div class="col-3">
-        <label for="confirmPassword" class="col-form-label">密碼:</label>
+        <label for="confirmPassword" class="col-form-label text-nowrap confirmPassword-label">確認密碼:<span class="text-danger">*</span></label>
       </div>
       <div class="col-9">
         <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="請輸入相同密碼"

@@ -65,3 +65,8 @@ a,
   font-size: 5px;
   margin-left: -0.8rem;
 }
+
+.confirmPassword-label {
+  position: relative;
+  left: -1rem
+}
