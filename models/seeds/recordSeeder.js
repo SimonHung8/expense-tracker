@@ -11,26 +11,29 @@ const SEED_USERS = require('./SEED_DATA/user.json').results
 const SEED_RECORDS = require('./SEED_DATA/record.json').results
 
 db.once('open', () => {
+  // 將SEED_RECORDS內的類別名稱調整為category collection內各類別的id
   Category.find()
     .then(categories => {
-      SEED_RECORDS.forEach(seed => {
-        seed.categoryID = categories.find(category => category.name === seed.categoryID)._id
+      SEED_RECORDS.forEach(seedRecord => {
+        seedRecord.categoryID = categories.find(category => category.name === seedRecord.categoryID)._id
       })
     })
+    // 創建使用者與對應的record
     .then(() => {
-      Promise.all(SEED_USERS.map(seed => {
+      Promise.all(SEED_USERS.map(seedUser => {
         return User.create({
-          name: seed.name,
-          email: seed.email,
-          password: bcrypt.hashSync(seed.password, 5)
+          name: seedUser.name,
+          email: seedUser.email,
+          password: bcrypt.hashSync(seedUser.password, 5)
         })
           .then(user => {
             const records = []
-            SEED_RECORDS.forEach(record => {
-              if ((SEED_USERS.indexOf(seed) + 1) * 5 > SEED_RECORDS.indexOf(record) &&
-                SEED_USERS.indexOf(seed) * 5 <= SEED_RECORDS.indexOf(record)) {
-                record.userID = user._id
-                records.push(record)
+            // 前五筆seed record對應到第一個user，後五筆對應到第二個user
+            SEED_RECORDS.forEach(seedRecord => {
+              if ((SEED_USERS.indexOf(seedUser) + 1) * 5 > SEED_RECORDS.indexOf(seedRecord) &&
+                SEED_USERS.indexOf(seedUser) * 5 <= SEED_RECORDS.indexOf(seedRecord)) {
+                seedRecord.userID = user._id
+                records.push(seedRecord)
               }
             })
             return Record.insertMany(records)
