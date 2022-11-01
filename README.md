@@ -24,7 +24,9 @@ Please install Node.js and npm before starting; make sure you already have a Mon
    npm install
    ```
 
-3. Once installed, create a **.env** file in project folder to set environment variables. You can find example in **.env.example**. Don't forget to change to your own connection string.
+3. Once installed, create a **.env** file in project folder to set environment variables. You can find example in **.env.example**.
+   * **GOOGLE_CLIENT_ID** and **GOOGLE_CLIENT_SECRET** should be your Google App ID and App secret. Create your app in [Google Developers Console](https://console.developers.google.com/)
+   * **MONGODB_URI** should be your MongoDB connection string.
 
 4. Then type in :
 
