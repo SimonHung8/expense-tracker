@@ -33,7 +33,7 @@ router.post('/register',
   body('password').isLength({ min: 1 }).withMessage('請輸入密碼'),
   // 驗證密碼與確認密碼是否相符
   body('confirmPassword').custom((value, { req }) => isPasswordMatched(value, req)),
-  (req, res) => {
+  (req, res, next) => {
     const errors = validationResult(req)
     const { name, email, password, confirmPassword } = req.body
     // 錯誤處理
@@ -44,10 +44,7 @@ router.post('/register',
       .then(salt => bcrypt.hash(password, salt))
       .then(hash => User.create({ name, email, password: hash }))
       .then(user => req.logIn(user, () => res.redirect('/')))
-      .catch(err => {
-        console.log(err)
-        res.render('err')
-      })
+      .catch(next)
   })
 
 module.exports = router

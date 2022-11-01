@@ -1,4 +1,8 @@
 <div class="container">
   <h2 class="text-center m-3">操作失敗...</h2>
+  {{#if url}}
+  <h4 class="text-center m-3">找不到{{url}}</h4>
+  {{else}}
   <h4 class="text-center">好像出問題了！ 快去檢查一下吧！</h4>
+  {{/if}}
 </div>

@@ -6,6 +6,7 @@ const flash = require('connect-flash')
 const methodOverride = require('method-override')
 const routes = require('./routes/index')
 const usePassport = require('./config/passport')
+const errorHandle = require('./middleware/errorHandle')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -51,6 +52,9 @@ app.use(methodOverride('_method'))
 
 // setting routes
 app.use(routes)
+
+// errorHandle
+app.use(errorHandle)
 
 // listening on server
 app.listen(PORT, () => {

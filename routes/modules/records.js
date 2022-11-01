@@ -5,16 +5,13 @@ const Category = require('../../models/Category')
 const Record = require('../../models/Record')
 const { isInCategoryList } = require('../../utilities/customValidator')
 
-router.get('/new', (req, res) => {
+router.get('/new', (req, res, next) => {
   Category.find()
     .lean()
     .then(categories => {
       res.render('new', { categories })
     })
-    .catch(err => {
-      console.log(err)
-      res.render('err')
-    })
+    .catch(next)
 })
 
 router.post('/',
@@ -24,7 +21,7 @@ router.post('/',
     .bail().custom(category => isInCategoryList(category)),
   body('date').isDate({ format: 'yyyy-mm-dd', strictMode: true }).withMessage('請輸入有效日期 yyyy-mm-dd'),
   body('amount').isNumeric().withMessage('金額請輸入阿拉伯數字'),
-  (req, res) => {
+  (req, res, next) => {
     const errors = validationResult(req)
     const { name, date, category, amount } = req.body
     // 錯誤處理
@@ -40,22 +37,16 @@ router.post('/',
           })
           return res.render('new', { categories, name, date, amount, errorMsg: errors.errors })
         })
-        .catch(err => {
-          console.log(err)
-          res.render('err')
-        })
+        .catch(next)
     }
     // 創建資料
     const userID = req.user._id
     Record.create({ name, date, categoryID: category, amount, userID })
       .then(res.redirect('/'))
-      .catch(err => {
-        console.log(err)
-        res.render('err')
-      })
+      .catch(next)
   })
 
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', (req, res, next) => {
   const _id = req.params.id
   const userID = req.user._id
   const categories = []
@@ -77,15 +68,9 @@ router.get('/:id/edit', (req, res) => {
             { year: 'numeric', month: '2-digit', day: '2-digit' })
           res.render('edit', { record, categories })
         })
-        .catch(err => {
-          console.log(err)
-          res.render('err')
-        })
+        .catch(next)
     })
-    .catch(err => {
-      console.log(err)
-      res.render('err')
-    })
+    .catch(next)
 })
 
 router.put('/:id',
@@ -94,7 +79,7 @@ router.put('/:id',
     .bail().custom(category => isInCategoryList(category)),
   body('date').isDate({ format: 'yyyy-mm-dd', strictMode: true }).withMessage('請輸入有效日期 yyyy-mm-dd'),
   body('amount').isNumeric().withMessage('金額請輸入阿拉伯數字'),
-  (req, res) => {
+  (req, res, next) => {
     const errors = validationResult(req)
     const { name, date, category, amount } = req.body
     // 錯誤處理
@@ -110,31 +95,22 @@ router.put('/:id',
           req.body._id = req.user._id
           return res.render('edit', { categories, record: req.body, errorMsg: errors.errors })
         })
-        .catch(err => {
-          console.log(err)
-          res.render('err')
-        })
+        .catch(next)
     }
     // 修改資料
     const _id = req.params.id
     const userID = req.user._id
     Record.findOneAndUpdate({ _id, userID }, { name, date, categoryID: category, amount })
       .then(() => res.redirect('/'))
-      .catch(err => {
-        console.log(err)
-        res.render('err')
-      })
+      .catch(next)
   })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res, next) => {
   const _id = req.params.id
   const userID = req.user._id
   Record.findOneAndDelete({ _id, userID })
     .then(res.redirect('/'))
-    .catch(err => {
-      console.log(err)
-      res.render('err')
-    })
+    .catch(next)
 })
 
 module.exports = router

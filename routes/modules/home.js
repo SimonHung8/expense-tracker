@@ -3,7 +3,7 @@ const router = express.Router()
 const Record = require('../../models/Record')
 const Category = require('../../models/Category')
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   const categories = []
   const filter = req.query.filter
   const userID = req.user._id
@@ -37,15 +37,9 @@ router.get('/', (req, res) => {
           })
           res.render('index', { records, categories, totalAmount })
         })
-        .catch(err => {
-          console.log(err)
-          res.render('err')
-        })
+        .catch(next)
     })
-    .catch(err => {
-      console.log(err)
-      res.render('err')
-    })
+    .catch(next)
 })
 
 module.exports = router
