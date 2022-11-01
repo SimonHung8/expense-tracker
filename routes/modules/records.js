@@ -3,6 +3,7 @@ const { body, validationResult } = require('express-validator')
 const router = express.Router()
 const Category = require('../../models/Category')
 const Record = require('../../models/Record')
+const { isInCategoryList } = require('../../utilities/customValidator')
 
 router.get('/new', (req, res) => {
   Category.find()
@@ -17,37 +18,27 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/',
-  body('date').isDate({ format: 'yyyy-mm-dd', strictMode: true }),
-  body('amount').isNumeric(),
+  body('name').isLength({ min: 1 }).withMessage('請輸入支出項目'),
+  // 驗證category的值是不是MongoID，如果是MongoID再驗證是不是建立過的類別
+  body('category').isMongoId().withMessage('請選擇支出類別')
+    .bail().custom(category => isInCategoryList(category)),
+  body('date').isDate({ format: 'yyyy-mm-dd', strictMode: true }).withMessage('請輸入有效日期 yyyy-mm-dd'),
+  body('amount').isNumeric().withMessage('金額請輸入阿拉伯數字'),
   (req, res) => {
-    // 錯誤處理
-    const errors = validationResult(req).errors
+    const errors = validationResult(req)
     const { name, date, category, amount } = req.body
-    const errorMsg = []
-    if (!name) {
-      errorMsg.push('請輸入支出項目')
-    }
-    if (!category) {
-      errorMsg.push('請選擇支出類別')
-    }
-    if (errors.length) {
-      if (errors.some(error => error.param === 'date')) {
-        errorMsg.push('請輸入有效日期 yyyy-mm-dd')
-      }
-      if (errors.some(error => error.param === 'amount')) {
-        errorMsg.push('金額請輸入阿拉伯數字')
-      }
-    }
-    if (errorMsg.length) {
+    // 錯誤處理
+    if (!errors.isEmpty()) {
       return Category.find()
         .lean()
         .then(categories => {
+          // 讓使用者知道自己選了哪個類別
           categories.forEach(data => {
             if (data._id.toString() === category) {
               data.selected = true
             }
           })
-          res.render('new', { categories, name, date, amount, errorMsg })
+          return res.render('new', { categories, name, date, amount, errorMsg: errors.errors })
         })
         .catch(err => {
           console.log(err)
@@ -98,28 +89,16 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.put('/:id',
-  body('date').isDate({ format: 'yyyy-mm-dd', strictMode: true }),
-  body('amount').isNumeric(),
+  body('name').isLength({ min: 1 }).withMessage('請輸入支出項目'),
+  body('category').isMongoId().withMessage('請選擇支出類別')
+    .bail().custom(category => isInCategoryList(category)),
+  body('date').isDate({ format: 'yyyy-mm-dd', strictMode: true }).withMessage('請輸入有效日期 yyyy-mm-dd'),
+  body('amount').isNumeric().withMessage('金額請輸入阿拉伯數字'),
   (req, res) => {
-    // 錯誤處理
-    const errors = validationResult(req).errors
+    const errors = validationResult(req)
     const { name, date, category, amount } = req.body
-    const errorMsg = []
-    if (!name) {
-      errorMsg.push('請輸入支出項目')
-    }
-    if (!category) {
-      errorMsg.push('請選擇支出類別')
-    }
-    if (errors.length) {
-      if (errors.some(error => error.param === 'date')) {
-        errorMsg.push('請輸入有效日期 yyyy-mm-dd')
-      }
-      if (errors.some(error => error.param === 'amount')) {
-        errorMsg.push('金額請輸入阿拉伯數字')
-      }
-    }
-    if (errorMsg.length) {
+    // 錯誤處理
+    if (!errors.isEmpty()) {
       return Category.find()
         .lean()
         .then(categories => {
@@ -129,7 +108,7 @@ router.put('/:id',
             }
           })
           req.body._id = req.user._id
-          res.render('edit', { categories, record: req.body, errorMsg })
+          return res.render('edit', { categories, record: req.body, errorMsg: errors.errors })
         })
         .catch(err => {
           console.log(err)
