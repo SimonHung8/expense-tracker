@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs')
 const { body, validationResult } = require('express-validator')
 const router = express.Router()
 const User = require('../../models/User')
+const isRegistered = require('../../utilities/isRegistered')
+const isPasswordMatched = require('../../utilities/isPasswordMatched')
 
 router.get('/login', (req, res) => {
   res.render('login')
@@ -26,38 +28,21 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register',
-  body('email').isEmail(),
+  body('email').custom(email => isRegistered(email)),
+  body('name').isLength({ min: 1 }).withMessage('請輸入使用者名稱'),
+  body('email').isEmail().withMessage('請輸入有效Email'),
+  body('password').isLength({ min: 1 }).withMessage('請輸入密碼'),
+  body('confirmPassword').custom((value, { req }) => isPasswordMatched(value, req)),
   (req, res) => {
-    const { name, email, password, confirmPassword } = req.body
     const errors = validationResult(req)
-    const errorMsg = []
+    const { name, email, password, confirmPassword } = req.body
     if (!errors.isEmpty()) {
-      errorMsg.push('請輸入有效email')
+      return res.render('register', { errorMsg: errors.errors, name, email, password, confirmPassword })
     }
-    if (!name || !email || !password || !confirmPassword) {
-      errorMsg.push('請填寫所有欄位')
-    }
-    if (confirmPassword !== password) {
-      errorMsg.push('密碼與確認密碼不相符')
-    }
-    if (errorMsg.length) {
-      return res.render('register', { errorMsg, name, email, password, confirmPassword })
-    }
-    User.findOne({ email })
-      .then(user => {
-        if (user) {
-          errorMsg.push('這個Email已經註冊過了')
-          return res.render('register', { errorMsg, name, email, password, confirmPassword })
-        }
-        bcrypt.genSalt(5)
-          .then(salt => bcrypt.hash(password, salt))
-          .then(hash => User.create({ name, email, password: hash }))
-          .then(user => req.logIn(user, () => res.redirect('/')))
-          .catch(err => {
-            console.log(err)
-            res.render('err')
-          })
-      })
+    bcrypt.genSalt(5)
+      .then(salt => bcrypt.hash(password, salt))
+      .then(hash => User.create({ name, email, password: hash }))
+      .then(user => req.logIn(user, () => res.redirect('/')))
       .catch(err => {
         console.log(err)
         res.render('err')
