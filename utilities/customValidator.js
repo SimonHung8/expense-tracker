@@ -8,6 +8,9 @@ const customValidator = {
         .then(user => {
           return user ? reject('這個Email已經註冊過了') : resolve(true)
         })
+        .catch(() => {
+          reject('請選擇支出類別')
+        })
     })
   },
   isPasswordMatched(value, req) {
@@ -19,6 +22,9 @@ const customValidator = {
       Category.findById(category)
         .then(category => {
           return category ? resolve(true) : reject('請選擇支出類別')
+        })
+        .catch(() => {
+          reject('請選擇支出類別')
         })
     })
   }
