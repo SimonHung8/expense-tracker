@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const { body, validationResult } = require('express-validator')
 const router = express.Router()
 const User = require('../../models/User')
-const { isRegistered, isPasswordMatched } = require('../../utilities/customValidator')
+const { isRegistered, isPasswordMatched, hasNoSpace } = require('../../utilities/customValidator')
 
 router.get('/login', (req, res) => {
   res.render('login')
@@ -30,7 +30,7 @@ router.post('/register',
   // 驗證email是否有效，如果email有效會驗證是否已經註冊過
   body('email').isEmail().withMessage('請輸入有效Email').bail().custom(email => isRegistered(email)),
   body('name').isLength({ min: 1 }).withMessage('請輸入使用者名稱'),
-  body('password').isLength({ min: 1 }).withMessage('請輸入密碼'),
+  body('password').isLength({ min: 1 }).withMessage('請輸入密碼').custom(value => hasNoSpace(value)).withMessage('密碼請勿輸入空格'),
   // 驗證密碼與確認密碼是否相符
   body('confirmPassword').custom((value, { req }) => isPasswordMatched(value, req)),
   (req, res, next) => {

@@ -27,6 +27,10 @@ const customValidator = {
           reject('請選擇支出類別')
         })
     })
+  },
+  hasNoSpace(value) {
+    if(/\s/.test(value))  throw new Error('')
+    return true
   }
 }
 

@@ -3,7 +3,7 @@ const { body, validationResult } = require('express-validator')
 const router = express.Router()
 const Category = require('../../models/Category')
 const Record = require('../../models/Record')
-const { isInCategoryList } = require('../../utilities/customValidator')
+const { isInCategoryList, hasNoSpace } = require('../../utilities/customValidator')
 
 router.get('/new', (req, res, next) => {
   Category.find()
@@ -15,7 +15,7 @@ router.get('/new', (req, res, next) => {
 })
 
 router.post('/',
-  body('name').isLength({ min: 1 }).withMessage('請輸入支出項目'),
+  body('name').isLength({ min: 1 }).withMessage('請輸入支出項目').custom(value => hasNoSpace(value)).withMessage('請輸入支出項目'),
   // 驗證category的值是不是MongoID，如果是MongoID再驗證是不是建立過的類別
   body('category').isMongoId().withMessage('請選擇支出類別')
     .bail().custom(category => isInCategoryList(category)),
@@ -74,7 +74,7 @@ router.get('/:id/edit', (req, res, next) => {
 })
 
 router.put('/:id',
-  body('name').isLength({ min: 1 }).withMessage('請輸入支出項目'),
+  body('name').isLength({ min: 1 }).withMessage('請輸入支出項目').custom(value => hasNoSpace(value)).withMessage('請輸入支出項目'),
   body('category').isMongoId().withMessage('請選擇支出類別')
     .bail().custom(category => isInCategoryList(category)),
   body('date').isDate({ format: 'yyyy-mm-dd', strictMode: true }).withMessage('請輸入有效日期 yyyy-mm-dd'),
